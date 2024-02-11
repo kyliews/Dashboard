@@ -3,6 +3,7 @@ Painel de controle interativo para análise de dados de vendas, desenvolvido em 
 Estrutura do Projeto:
 
 •app.py: O código principal do aplicativo Streamlit.
+
 •assets/base_dados.xlsx: Arquivo Excel contendo os dados de vendas.
 
 Funcionalidades Principais:
