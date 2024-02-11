@@ -31,9 +31,7 @@ https://github.com/kyliews/Dashboard
 2. Navegue até o diretório do projeto:
 cd Dashboard
 
-3. Altere a linha de comando no arquivo app.py:
-   
-Localize a linha 5, que contém a leitura do arquivo Excel.
+3. No arquivo app.py, localize a linha 5, que contém a leitura do arquivo Excel.
 
 Altere o caminho do arquivo Excel para refletir o local do seu repositório.
 
