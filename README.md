@@ -4,7 +4,7 @@ Estrutura do Projeto:
 
 •app.py: O código principal do aplicativo Streamlit.
 
-•assets/base_dados.xlsx: Arquivo Excel contendo os dados de vendas.
+•assets/base_dados.xlsx: Arquivo Excel contendo a database.
 
 Funcionalidades Principais:
 
