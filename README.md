@@ -39,6 +39,6 @@ Altere o caminho do arquivo Excel para refletir o local do seu repositório.
 
 df = pd.read_excel(r'*seu caminho*\Dashboard\assets\base_dados.xlsx')
 
-4. Execute o aplicativo
+4. Execute o aplicativo:
 streamlit run app.py
 
