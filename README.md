@@ -32,8 +32,11 @@ https://github.com/kyliews/Dashboard
 cd Dashboard
 
 3. Altere a linha de comando no arquivo app.py:
+   
 Localize a linha 5, que contém a leitura do arquivo Excel.
+
 Altere o caminho do arquivo Excel para refletir o local do seu repositório.
+
 df = pd.read_excel(r'*seu caminho*\Dashboard\assets\base_dados.xlsx')
 
 4. Execute o aplicativo
