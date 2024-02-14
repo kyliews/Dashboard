@@ -1,42 +1,34 @@
-Painel de controle interativo para análise de dados de vendas, desenvolvido em Python usando as bibliotecas Streamlit e Plotly Express.
 
-Estrutura do Projeto:
+Interactive control panel for sales data analysis, developed in Python using the Streamlit and Plotly Express libraries.
 
-•app.py: O código principal do aplicativo Streamlit.
+Project Structure:
 
-•assets/base_dados.xlsx: Arquivo Excel contendo a database.
+•app.py: The main code for the Streamlit application.
 
-Funcionalidades Principais:
+•assets/base_dados.xlsx: Excel file containing the database.
 
-Seleção de Parâmetros:
-O usuário pode selecionar o vendedor, produto e cliente através de dropdowns na barra lateral.
+Main Features:
 
-Visualizações Interativas:
-O dashboard apresenta gráficos interativos usando a biblioteca Plotly Express, incluindo quantidade vendida por produto, valor total por produto e valor da venda por vendedor.
+Parameter Selection: Users can choose the seller, product, and customer through dropdowns in the sidebar.
 
-Métricas Principais:
-Exibe métricas importantes, como vendas totais, margem total e percentual de margem.
+Interactive Visualizations: The dashboard presents interactive graphs using the Plotly Express library, including quantity sold per product, total value per product, and sales value per seller.
 
-Tabelas Detalhadas:
-Fornece tabelas detalhadas que suportam os gráficos, permitindo ao usuário explorar dados específicos.
+Key Metrics: Displays important metrics such as total sales, total margin, and margin percentage.
 
-Expansores:
-Utiliza expansores para ocultar/expandir as tabelas, melhorando a experiência do usuário.
+Detailed Tables: Provides detailed tables that support the graphs, allowing users to explore specific data.
 
-Como Usar:
+Expanders: Uses expanders to hide/expand tables, enhancing the user experience.
 
-1. Clone o repositório:
-https://github.com/kyliews/Dashboard
+How to Use:
 
-2. Navegue até o diretório do projeto:
-cd Dashboard
+Clone the repository: https://github.com/kyliews/Dashboard
 
-3. No arquivo app.py, localize a linha 5, que contém a leitura do arquivo Excel.
+Navigate to the project directory: cd Dashboard
 
-Altere o caminho do arquivo Excel para refletir o local do seu repositório.
+In the app.py file, locate line 5, which contains the Excel file reading.
 
-df = pd.read_excel(r'*seu caminho*\Dashboard\assets\base_dados.xlsx')
+Change the path of the Excel file to reflect the location of your repository.
 
-4. Execute o aplicativo:
-streamlit run app.py
+df = pd.read_excel(r'your path\Dashboard\assets\base_dados.xlsx')
 
+Run the application: streamlit run app.py
