@@ -1,136 +1,112 @@
-import streamlit as st 
+import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-df = pd.read_excel(r'C:\Users\Admin\Documents\projetos Python\Dashboard\Dashboard\assets\base_dados.xlsx')
+df = pd.read_excel(r'*your path*\Dashboard\Dashboard\assets\databse1.xlsx')
 
 st.set_page_config(
-    "Dashboard de Vendas",
+    "Sales Dashboard",
     layout="wide",
     initial_sidebar_state='expanded',
     menu_items={
-        'Get Help' : 'https://www.meusite.com.br/',
-        'About' : 'App desenvolvido no curso'
+        'Get Help' : 'https://www.mysite.com/',
+        'About' : 'App developed in the course'
     }
 )
 
 with st.sidebar:
-    #st.subheader("MENU - DASHBOARD DE VENDAS")
-    fVendedor = st.selectbox(
-        "Selecione o vendedor: ",
-         options=df['Vendedor'].unique()
+    fSeller = st.selectbox(
+        "Select the seller: ",
+         options=df['Seller'].unique()
     )
-    fProduto = st.selectbox(
-        "Selecione o produto:",
-        options=df['Produto vendido'].unique()
+    fProduct = st.selectbox(
+        "Select the product:",
+        options=df['Sold Product'].unique()
     )
-    fCliente = st.selectbox(
-        "Selecione o cliente: ",
-        options=df['Cliente'].unique()
+    fClient = st.selectbox(
+        "Select the client: ",
+        options=df['Client'].unique()
     )
-    tabel_qtde_produto = df.loc[
-        (df['Vendedor'] == fVendedor) &
-        (df['Cliente'] == fCliente)]
-    
-#tabela de quantidade de vendas por produto
-    tabel_qtde_produto = tabel_qtde_produto.drop(columns= ['Data',
-                                                           'Vendedor',
-                                                           'Cliente',
-                                                           'Nº pedido',
-                                                           "Região"])
-    
-    tabel_qtde_produto = tabel_qtde_produto.groupby('Produto vendido').sum().reset_index()
-    
-#tabela de vendas e margem
-tabel_vendas_margem = df.loc[(
-    df['Vendedor'] == fVendedor) &
-    (df['Produto vendido'] == fProduto) &
-    (df['Cliente'] == fCliente)]
-#tabel_vendas_margem                    
+    qty_product_table = df.loc[
+        (df['Seller'] == fSeller) &
+        (df['Client'] == fClient)]
 
+    qty_product_table = qty_product_table.drop(columns=['Date',
+                                                        'Seller',
+                                                        'Client',
+                                                        'Order No',
+                                                        "Region"])
 
+    qty_product_table = qty_product_table.groupby('Sold Product').sum().reset_index()
 
-#tabela de vendas por vendedor
-tabel_vendas_vendedor = df.loc[
-    (df['Produto vendido'] == fProduto) &
-    (df['Cliente'] == fCliente)
+sales_margin_table = df.loc[(
+    df['Seller'] == fSeller) &
+    (df['Sold Product'] == fProduct) &
+    (df['Client'] == fClient)]
+
+sales_seller_table = df.loc[
+    (df['Sold Product'] == fProduct) &
+    (df['Client'] == fClient)
 ]
-tabel_vendas_vendedor = tabel_vendas_vendedor.drop(columns= ['Data',
-                                                          'Cliente',
-                                                           "Região",
-                                                           'Produto vendido',
-                                                           'Nº pedido',
-                                                           'Preço'])
-    
-tabel_vendas_vendedor = tabel_vendas_vendedor.groupby('Vendedor').sum().reset_index()
-#tabel_vendas_vendedor
+sales_seller_table = sales_seller_table.drop(columns=['Date',
+                                                      'Client',
+                                                      "Region",
+                                                      'Sold Product',
+                                                      'Order No',
+                                                      'Price'])
 
+sales_seller_table = sales_seller_table.groupby('Seller').sum().reset_index()
 
+sales_client_table = df.loc[(df['Seller'] == fSeller) & 
+                              (df['Sold Product'] == fProduct)]
 
-tabel_vendas_cliente = df.loc[(df['Vendedor'] == fVendedor) & 
-                              (df['Produto vendido'] == fProduto)]
+sales_client_table = sales_client_table.drop(columns=['Date',
+                                                      "Region",
+                                                      'Sold Product',
+                                                      'Order No',
+                                                      'Price',
+                                                      'Seller'])
+sales_client_table = sales_client_table.groupby('Client').sum().reset_index()
 
-tabel_vendas_cliente = tabel_vendas_cliente.drop(columns= ['Data',
-                                                           "Região",
-                                                           'Produto vendido',
-                                                           'Nº pedido',
-                                                           'Preço',
-                                                           'Vendedor'])
-tabel_vendas_cliente = tabel_vendas_cliente.groupby('Cliente').sum().reset_index()
-#tabel_vendas_cliente
+graph_qty_product = px.bar(qty_product_table, x='Sold Product',
+                            y='Quantity',
+                            title="Quantity Sold per Product")
 
-#grafico por produto vendido
-graf1_qtde_produto = px.bar(tabel_qtde_produto,x='Produto vendido',
-                            y='Quantidade',
-                            title="Quantidade Vendida por Produto")
+graph_value_product = px.bar(qty_product_table, x='Sold Product',
+                            y='Order Value',
+                            title="Total Value per Product")
 
-#graf1_qtde_produto
+graph_total_seller = px.bar(sales_seller_table, x='Seller',
+                            y='Order Value',
+                            title="Sales Value per Seller")
 
-#grafico valor da venda por produto
-graf2_valor_produto = px.bar(tabel_qtde_produto,x='Produto vendido',
-                            y='Valor Pedido',
-                            title="Valor total por Produto")
-
-#graf2_valor_produto
-
-#grafico de total de venda por vendedor:
-
-graf3_total_vendedor = px.bar(tabel_vendas_vendedor,x='Vendedor',
-                            y='Valor Pedido',
-                            title="Valor da Venda por Vendedor")
-
-#graf3_total_vendedor
-
-st.header(":bar_chart: Dashboard de Vendas")
+st.header(":bar_chart: Sales Dashboard")
 st.write("---")
-col1,col2,col3 = st.columns([2,2,3],gap='small')
+col1, col2, col3 = st.columns([2, 2, 3], gap='small')
 
-total_vendas = round(tabel_vendas_margem['Valor Pedido'].sum(),2)
-total_margem = round(tabel_vendas_margem['Margem Lucro'].sum(),2)
-porc_margem = int(100*total_margem/total_vendas)
+total_sales = round(sales_margin_table['Order Value'].sum(), 2)
+total_margin = round(sales_margin_table['Profit Margin'].sum(), 2)
+margin_percentage = int(100 * total_margin / total_sales)
 
 st.write("---")
 
 with col1:
-    st.metric("Vendas Totais",value=f"R${total_vendas}")
-    
+    st.metric("Total Sales", value=f"R${total_sales}")
+
 with col2:
-    st.metric("Margem total",value=f"R${total_margem}")
-    
+    st.metric("Total Margin", value=f"R${total_margin}")
+
 with col3:
-    st.metric("Margem",value=f"R${porc_margem}%")
-    
-    
-    
-st.write(graf1_qtde_produto)
-with st.expander("Visualização da tabela: "):
-    st.write(tabel_qtde_produto)
-    
-st.write(graf2_valor_produto)
-with st.expander("Visualização da tabela: "):
-    st.write(tabel_qtde_produto)
-    
-st.write(graf3_total_vendedor)
-with st.expander("Visualização da tabela: "):
-    st.write(tabel_vendas_vendedor)
-    
+    st.metric("Margin Percentage", value=f"{margin_percentage}%")
+
+st.write(graph_qty_product)
+with st.expander("Table View: "):
+    st.write(qty_product_table)
+
+st.write(graph_value_product)
+with st.expander("Table View: "):
+    st.write(qty_product_table)
+
+st.write(graph_total_seller)
+with st.expander("Table View: "):
+    st.write(sales_seller_table)
