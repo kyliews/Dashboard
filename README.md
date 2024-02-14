@@ -21,14 +21,14 @@ Expanders: Uses expanders to hide/expand tables, enhancing the user experience.
 
 How to Use:
 
-Clone the repository: https://github.com/kyliews/Dashboard
+1. Clone the repository: https://github.com/kyliews/Dashboard
 
-Navigate to the project directory: cd Dashboard
+2. Navigate to the project directory: cd Dashboard
 
-In the app.py file, locate line 5, which contains the Excel file reading.
+3. In the app.py file, locate line 5, which contains the Excel file reading.
 
-Change the path of the Excel file to reflect the location of your repository.
+4. Change the path of the Excel file to reflect the location of your repository.
 
-df = pd.read_excel(r'your path\Dashboard\assets\base_dados.xlsx')
+df = pd.read_excel(r'your path\Dashboard\assets\database1.xlsx')
 
-Run the application: streamlit run app.py
+5. Run the application: streamlit run app.py
